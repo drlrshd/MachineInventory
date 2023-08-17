@@ -1,0 +1,4 @@
+{
+  "dotnet.defaultSolution": "MachineInventory.sln",
+  "editor.defaultFormatter": "csharpier.csharpier-vscode"
+}
