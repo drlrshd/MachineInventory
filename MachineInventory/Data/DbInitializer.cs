@@ -6,8 +6,6 @@ namespace MachineInventory.Data
     {
         public static void Initialize(InventoryContext context)
         {
-            context.Database.EnsureCreated();
-
             // Check if DB already has any entries
             if (context.Machines.Any())
             {
@@ -17,8 +15,8 @@ namespace MachineInventory.Data
             // Else fill it with some things
             var manufacturers = new Manufacturer[]
             {
-                new Manufacturer { Name = "AB", Location = "Aberdeen" },
-                new Manufacturer { Name = "BE", Location = "Berlin" }
+                new Manufacturer("AB", "Aberdeen"),
+                new Manufacturer("BE", "Berlin")
             };
 
             foreach (Manufacturer manufacturer in manufacturers)
@@ -30,9 +28,14 @@ namespace MachineInventory.Data
 
             var machines = new Machine[]
             {
-                new Machine(0, "Metal Cutter MC01", 999.9f, DateTime.UtcNow, "AB"),
-                new Machine(0, "Wood Chopper WC01", 9999.9f, DateTime.UtcNow, "AB"),
-                new Machine(0, "Paper Maker P3A", 666.6f, DateTime.Parse("2020-02-20 20:20"), "BE")
+                new Machine("Metal Cutter MC01", 999.9f, DateTime.UtcNow, manufacturers[0].Id),
+                new Machine("Wood Chopper WC01", 9999.9f, DateTime.UtcNow, manufacturers[0].Id),
+                new Machine(
+                    "Paper Maker P3A",
+                    666.6f,
+                    DateTime.Parse("2020-02-20 20:20"),
+                    manufacturers[1].Id
+                )
             };
 
             foreach (Machine machine in machines)
